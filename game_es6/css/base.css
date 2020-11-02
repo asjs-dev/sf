@@ -1,0 +1,17 @@
+html, body {
+  background: black;
+  overflow: hidden;
+}
+
+* {
+  box-sizing: border-box;
+  transition: all 0.5s ease-in-out;
+  pointer-events: none;
+
+  -webkit-touch-callout: none;
+    -webkit-user-select: none;
+     -khtml-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+}

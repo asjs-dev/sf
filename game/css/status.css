@@ -1,0 +1,112 @@
+.status-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform-origin: center;
+}
+
+.status-screen label {
+  font-family: Tahoma, Geneva, sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  color: black;
+}
+
+.status-bar-container {
+  border-radius: 5px 5px 4px 4px;
+  width: 93px;
+  height: 14px;
+  position: absolute;
+  top: 24px;
+  left: 64px;
+  overflow: hidden;
+}
+
+.status-line {
+  border-radius: 5px 5px 4px 4px;
+  width: 100%;
+  height: 100%;
+  opacity: 0.75;
+}
+
+.status-rockets .status-line {
+  background: rgb(19,39,177);
+  background: -moz-linear-gradient(0deg, rgba(19,39,177,1) 0%, rgba(38,78,203,1) 47%, rgba(47,105,230,1) 84%, rgba(38,78,203,1) 100%);
+  background: -webkit-linear-gradient(0deg, rgba(19,39,177,1) 0%, rgba(38,78,203,1) 47%, rgba(47,105,230,1) 84%, rgba(38,78,203,1) 100%);
+  background: linear-gradient(0deg, rgba(19,39,177,1) 0%, rgba(38,78,203,1) 47%, rgba(47,105,230,1) 84%, rgba(38,78,203,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#1327b1",endColorstr="#264ecb",GradientType=1);
+}
+
+.status-rockets {
+  position: absolute;
+  top: -3px;
+  left: -13px;
+  width: 192px;
+  height: 64px;
+  background-image: url(../img/assets.png);
+  background-position: -320px -64px;
+}
+
+.status-rockets:before {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: 8px;
+  width: 64px;
+  height: 64px;
+  background-image: url(../img/assets.png);
+  background-position: -320px -128px;
+}
+
+.status-kills {
+  position: absolute;
+  top: -3px;
+  right: -13px;
+  width: 192px;
+  height: 64px;
+  background-image: url(../img/assets.png);
+  background-position: -320px -192px;
+  background-size: -100% 100%;
+}
+
+.status-kills label {
+  position: absolute;
+  top: 15px;
+  left: 48px;
+  width: 78px;
+  height: 30px;
+  line-height: 30px;
+  text-align: right;
+
+  color: #F2F3F9;
+  text-shadow: 0 3px 3px rgba(0, 0, 0, 1);
+}
+
+.status-kills label:after {
+  content: "\00D7";
+  margin-left: 5px;
+}
+
+.status-screen > .alert {
+  animation: flashing-red 1s infinite;
+}
+
+@keyframes flashing-red {
+  0% {
+    filter: sepia(0) hue-rotate(0) brightness(100%);
+  }
+  50% {
+    filter: sepia(100%) hue-rotate(-60deg) brightness(180%);
+  }
+  100% {
+    filter: sepia(0) hue-rotate(0) brightness(100%);
+  }
+}
+
+.status-screen.hide {
+  transition: all 0.5s ease-in;
+  transform: scale(1.2, 1.2);
+  opacity: 0;
+}
