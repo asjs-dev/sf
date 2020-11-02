@@ -1,8 +1,13 @@
-SF.LevelElement = class LevelElement extends SF.AbstractRenderable {
+import {between} from "../utility/utils.js";
+import Config from "../Config.js";
+import TextureAtlas from "../helper/TextureAtlas.js";
+import AbstractRenderable from "./AbstractRenderable.js";
+
+export default class LevelElement extends AbstractRenderable {
   constructor(baseTexture) {
     super(baseTexture, PIXI.Sprite);
 
-    this._SPEED = SF.Config.level.element.speed;
+    this._SPEED = Config.level.element.speed;
 
     this._colorMatrix = new PIXI.filters.ColorMatrixFilter();
     this._container.filters = [this._colorMatrix];
@@ -13,9 +18,9 @@ SF.LevelElement = class LevelElement extends SF.AbstractRenderable {
 
     this.zIndex = z;
 
-    this._container.texture = SF.TextureAtlas.getTexture(this._baseTexture, textureId);
+    this._container.texture = TextureAtlas.getTexture(this._baseTexture, textureId);
 
-    const sizeConfig = SF.Config.size;
+    const sizeConfig = Config.size;
 
     this._container.zIndex = this.zIndex;
     this._container.width  = this._container.texture.frame.width;

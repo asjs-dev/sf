@@ -1,4 +1,6 @@
-SF.DetectCollisions = (state, elements, callback) => {
+import {areRectsCollided} from "../utility/utils.js";
+
+export default (state, elements, callback) => {
   for (let i = 0, l = elements.length; i < l - 1; ++i) {
     let elementA = elements[i] ? elements[i].owner : null;
 

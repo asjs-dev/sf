@@ -1,4 +1,10 @@
-SF.EnemyMeteor = class EnemyMeteor extends SF.AbstractBreakable {
+import {between, getRandomFromArray} from "../utility/utils.js";
+import Config from "../Config.js";
+import TextureAtlas from "../helper/TextureAtlas.js";
+import AbstractCollidable from "./AbstractCollidable.js";
+import AbstractBreakable from "./AbstractBreakable.js";
+
+export default class EnemyMeteor extends AbstractBreakable {
   constructor(baseTexture) {
     super(baseTexture);
 
@@ -6,7 +12,7 @@ SF.EnemyMeteor = class EnemyMeteor extends SF.AbstractBreakable {
     this._hitTestHelper.width  = 50;
     this._hitTestHelper.height = 43;
 
-    this.type = SF.AbstractCollidable.Type.Enemy;
+    this.type = AbstractCollidable.Type.Enemy;
 
     this._container.pivot.set(0.5);
 
@@ -20,9 +26,9 @@ SF.EnemyMeteor = class EnemyMeteor extends SF.AbstractBreakable {
 
     this.isAbleToCollide = true;
 
-    const enemyConfig  = SF.Config.enemy;
+    const enemyConfig  = Config.enemy;
     const meteorConfig = enemyConfig.meteor;
-    const sizeConfig   = SF.Config.size;
+    const sizeConfig   = Config.size;
 
     this._SPEED = between(
       enemyConfig.minSpeed,
@@ -45,9 +51,9 @@ SF.EnemyMeteor = class EnemyMeteor extends SF.AbstractBreakable {
 
     this._resetItem(this._meteor);
 
-    this._meteor.texture = SF.TextureAtlas.getTexture(
+    this._meteor.texture = TextureAtlas.getTexture(
       this._baseTexture,
-      getRandomFromArray(Math.random(), SF.EnemyMeteor.MeteorIds)
+      getRandomFromArray(Math.random(), EnemyMeteor.MeteorIds)
     );
 
     this._leftBorder = -this._container.width;
@@ -87,7 +93,8 @@ SF.EnemyMeteor = class EnemyMeteor extends SF.AbstractBreakable {
     this._container.removeChild(this._meteor);
   }
 };
-SF.EnemyMeteor.MeteorIds = [
+
+EnemyMeteor.MeteorIds = [
   "MeteorA",
   "MeteorB"
 ];

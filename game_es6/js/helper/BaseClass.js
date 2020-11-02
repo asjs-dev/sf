@@ -1,3 +1,3 @@
-SF.BaseClass = class BaseClass {
+export default class BaseClass {
   update(state) {}
 };

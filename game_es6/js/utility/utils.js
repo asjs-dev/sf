@@ -1,11 +1,11 @@
-const getClassNames = (target) => target.className.split(" ");
+export const getClassNames = (target) => target.className.split(" ");
 
-const addClass = (target, className) => {
+export const addClass = (target, className) => {
   !hasClass(target, className) && (target.className += " " + className);
   return target;
 }
 
-const removeClass = (target, className) => {
+export const removeClass = (target, className) => {
   let classNames     = getClassNames(target);
   let classNameIndex = classNames.indexOf(className);
 
@@ -17,16 +17,16 @@ const removeClass = (target, className) => {
   return target;
 }
 
-const hasClass = (target, className) => getClassNames(target).indexOf(className) > -1;
+export const hasClass = (target, className) => getClassNames(target).indexOf(className) > -1;
 
-const getRandomFromArray = (random, array) => array[Math.floor(random * array.length)];
+export const getRandomFromArray = (random, array) => array[Math.floor(random * array.length)];
 
-const areRectsCollided = (a, b) => a.x + a.width > b.x &&
-                                   a.x < b.x + b.width &&
-                                   a.y + a.height > b.y &&
-                                   a.y < b.y + b.height;
+export const areRectsCollided = (a, b) => a.x + a.width > b.x &&
+                                          a.x < b.x + b.width &&
+                                          a.y + a.height > b.y &&
+                                          a.y < b.y + b.height;
 
-const getTwoRectsCenter = (a, b) => {
+export const getTwoRectsCenter = (a, b) => {
   let minX = Math.min(a.x, b.x);
   let minY = Math.min(a.y, b.y);
   let maxX = Math.max(a.x + a.width,  b.x + b.width);
@@ -38,7 +38,7 @@ const getTwoRectsCenter = (a, b) => {
   };
 }
 
-const rgbToInt = (r, g, b)  => {
+export const rgbToInt = (r, g, b)  => {
   r &= 0xFF;
   g &= 0xFF;
   b &= 0xFF;
@@ -46,7 +46,7 @@ const rgbToInt = (r, g, b)  => {
   return (r << 16) | (g << 8) | b;
 }
 
-const intToRgb = (num) => {
+export const intToRgb = (num) => {
   num >>>= 0;
   return {
     r : (num & 0xFF0000) >>> 16,
@@ -55,7 +55,7 @@ const intToRgb = (num) => {
   };
 }
 
-const intToRgbFloat = (num) => {
+export const intToRgbFloat = (num) => {
   let rgb = intToRgb(num);
       rgb.r /= 255;
       rgb.g /= 255;
@@ -63,21 +63,21 @@ const intToRgbFloat = (num) => {
   return rgb;
 }
 
-const getAnimatedColor = (from, to, step) => rgbToInt(
-                                              from.r + (to.r - from.r) * step,
-                                              from.g + (to.g - from.g) * step,
-                                              from.b + (to.b - from.b) * step,
-                                            );
+export const getAnimatedColor = (from, to, step) => rgbToInt(
+                                                      from.r + (to.r - from.r) * step,
+                                                      from.g + (to.g - from.g) * step,
+                                                      from.b + (to.b - from.b) * step,
+                                                    );
 
-const between = (min, max, value) => Math.max(min, Math.min(max, value));
+export const between = (min, max, value) => Math.max(min, Math.min(max, value));
 
-const easeInOut = (t) => t < 0.5
-                          ? 4 * t * t * t
-                          : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+export const easeInOut = (t) => t < 0.5
+                                  ? 4 * t * t * t
+                                  : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
 
-const is = (a, b) => a instanceof b;
+export const is = (a, b) => a instanceof b;
 
-const deepFreeze = (object) => {
+export const deepFreeze = (object) => {
   let propNames = Object.getOwnPropertyNames(object);
 
   for (let name of propNames) {

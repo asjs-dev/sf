@@ -1,10 +1,14 @@
-SF.LevelPlanet = class LevelPlanet extends SF.AbstractLevel {
+import {between, rgbToInt} from "../utility/utils.js";
+import Config from "../Config.js";
+import AbstractLevel from "./AbstractLevel.js";
+
+export default class LevelPlanet extends AbstractLevel {
   constructor() {
     super();
 
     this.BACKGROUND_COLOR = 0x28A2DA;
     this.FIELD_COLOR      = 0x6FC033;
-    this.TIME_SCALE       = SF.Config.defaultState.timeScale;
+    this.TIME_SCALE       = Config.defaultState.timeScale;
 
     this._textureRects = [
       "Walker",
@@ -16,7 +20,7 @@ SF.LevelPlanet = class LevelPlanet extends SF.AbstractLevel {
   }
 
   setupElement(state, element) {
-    const sizeConfig = SF.Config.size;
+    const sizeConfig = Config.size;
 
     const z      = Math.random();
     const zScale = z * 3;

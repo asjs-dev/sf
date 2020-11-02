@@ -1,4 +1,6 @@
-SF.SplashViewController = class SplashViewController extends SF.AbstractViewController {
+import AbstractViewController from "./AbstractViewController.js";
+
+export default class SplashViewController extends AbstractViewController {
   constructor(dataObserver) {
     super(dataObserver);
 

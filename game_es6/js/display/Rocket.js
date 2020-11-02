@@ -1,4 +1,9 @@
-SF.Rocket = class Rocket extends SF.AbstractCollidable {
+import Config from "../Config.js";
+import TextureAtlas from "../helper/TextureAtlas.js";
+import LightBeam from "./LightBeam.js";
+import AbstractCollidable from "./AbstractCollidable.js";
+
+export default class Rocket extends AbstractCollidable {
   constructor(baseTexture) {
     super(baseTexture);
 
@@ -6,18 +11,18 @@ SF.Rocket = class Rocket extends SF.AbstractCollidable {
     this._hitTestHelper.width  = 26;
     this._hitTestHelper.height = 8;
 
-    this.type = SF.AbstractCollidable.Type.Rocket;
+    this.type = AbstractCollidable.Type.Rocket;
 
     this._MAX_SPEED    = 30;
     this._SPEED        = 2.5;
-    this._RIGHT_BORDER = SF.Config.size.width;
+    this._RIGHT_BORDER = Config.size.width;
 
     this._container.scale.set(0.5);
 
-    this._body = new PIXI.Sprite(SF.TextureAtlas.getTexture(this._baseTexture, "Rocket"));
+    this._body = new PIXI.Sprite(TextureAtlas.getTexture(this._baseTexture, "Rocket"));
     this._container.addChild(this._body);
 
-    this._lightBeam = new SF.LightBeam(this._baseTexture);
+    this._lightBeam = new LightBeam(this._baseTexture);
     this._lightBeam.pixiEl.position.set(-54, 0);
     this._container.addChild(this._lightBeam.pixiEl);
   }

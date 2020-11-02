@@ -1,7 +1,10 @@
-SF.AbstractViewController = class AbstractViewController extends SF.BaseClass {
+import {addClass, removeClass} from "../utility/utils.js";
+import BaseClass from "../helper/BaseClass.js";
+
+export default class AbstractViewController extends BaseClass {
   constructor(dataObserver) {
     super();
-    
+
     this._dataObserver = dataObserver;
     this._container;
   }

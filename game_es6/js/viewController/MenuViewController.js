@@ -1,4 +1,8 @@
-SF.MenuViewController = class MenuViewController extends SF.AbstractViewController {
+import {addClass, removeClass} from "../utility/utils.js";
+import Config from "../Config.js";
+import AbstractViewController from "./AbstractViewController.js";
+
+export default class MenuViewController extends AbstractViewController {
   constructor(dataObserver) {
     super(dataObserver);
 
@@ -43,7 +47,7 @@ SF.MenuViewController = class MenuViewController extends SF.AbstractViewControll
   }
 
   _exit() {
-    window.top.location.href = SF.Config.landingPage;
+    window.top.location.href = Config.landingPage;
   }
 
   _onDOViewChange(state, prevState) {

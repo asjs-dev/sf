@@ -1,4 +1,4 @@
-SF.Keyboard = class Keyboard {
+export default class Keyboard {
   constructor() {
     this._pressedKeys = {};
 

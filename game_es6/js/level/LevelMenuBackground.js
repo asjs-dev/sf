@@ -1,4 +1,8 @@
-SF.LevelMenuBackground = class LevelMenuBackground extends SF.AbstractLevel {
+import {between, rgbToInt} from "../utility/utils.js";
+import Config from "../Config.js";
+import AbstractLevel from "./AbstractLevel.js";
+
+export default class LevelMenuBackground extends AbstractLevel {
   constructor() {
     super();
 
@@ -8,7 +12,7 @@ SF.LevelMenuBackground = class LevelMenuBackground extends SF.AbstractLevel {
   }
 
   setupElement(state, element) {
-    const sizeConfig = SF.Config.size;
+    const sizeConfig = Config.size;
 
     const z = Math.random();
 

@@ -1,9 +1,12 @@
-SF.LightBeam = class LightBeam extends SF.AbstractBreakable {
+import TextureAtlas from "../helper/TextureAtlas.js";
+import AbstractBreakable from "./AbstractBreakable.js";
+
+export default class LightBeam extends AbstractBreakable {
   constructor(baseTexture, type) {
     super(baseTexture);
 
-    this._lightBeamTextureFrames = type || SF.LightBeam.Type.Blue;
-    this._lightBeamTexture = SF.TextureAtlas.getTexture(this._baseTexture, this._lightBeamTextureFrames[0]);
+    this._lightBeamTextureFrames = type || LightBeam.Type.Blue;
+    this._lightBeamTexture = TextureAtlas.getTexture(this._baseTexture, this._lightBeamTextureFrames[0]);
     this._lightBeam = new PIXI.Sprite(this._lightBeamTexture);
     this._container.addChild(this._lightBeam);
   }
@@ -18,7 +21,7 @@ SF.LightBeam = class LightBeam extends SF.AbstractBreakable {
     super.update(state);
 
     if (Math.floor(Math.random() * 5) === 0)
-      this._lightBeamTexture.frame = SF.TextureAtlas.TextureRects[
+      this._lightBeamTexture.frame = TextureAtlas.TextureRects[
         this._lightBeamTextureFrames[
           state.time % this._lightBeamTextureFrames.length
         ]
@@ -39,7 +42,8 @@ SF.LightBeam = class LightBeam extends SF.AbstractBreakable {
     this._container.removeChild(this._lightBeam);
   }
 };
-SF.LightBeam.Type = {
+
+LightBeam.Type = {
   Blue: [
     "LightBeamBlueA",
     "LightBeamBlueB"

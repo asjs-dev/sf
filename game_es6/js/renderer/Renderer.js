@@ -1,17 +1,20 @@
-SF.Renderer = class Renderer extends SF.BaseClass {
+import BaseClass from "../helper/BaseClass.js";
+import ColorizedBackground from "../display/ColorizedBackground.js";
+
+export default class Renderer extends BaseClass {
   constructor(baseTexture, options) {
     super();
 
     this._renderer = PIXI.autoDetectRenderer(options);
 
-    this._backgroundColor = new SF.ColorizedBackground(
+    this._backgroundColor = new ColorizedBackground(
       baseTexture,
       "Sky",
       this._renderer.width,
       this._renderer.height
     );
 
-    this._backgroundFieldColor = new SF.ColorizedBackground(
+    this._backgroundFieldColor = new ColorizedBackground(
       baseTexture,
       "Field",
       this._renderer.width,

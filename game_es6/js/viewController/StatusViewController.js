@@ -1,8 +1,12 @@
-SF.StatusViewController = class StatusViewController extends SF.AbstractViewController {
+import {addClass, removeClass} from "../utility/utils.js";
+import Config from "../Config.js";
+import AbstractViewController from "./AbstractViewController.js";
+
+export default class StatusViewController extends AbstractViewController {
   constructor(dataObserver) {
     super(dataObserver);
 
-    this._MAX_ROCKETS = SF.Config.maxRockets;
+    this._MAX_ROCKETS = Config.maxRockets;
 
     this._container = document.querySelector(".status-screen");
 

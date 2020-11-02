@@ -1,4 +1,6 @@
-SF.AbstractLevel = class AbstractLevel extends SF.BaseClass {
+import BaseClass from "../helper/BaseClass.js";
+
+export default class AbstractLevel extends BaseClass {
   constructor() {
     super();
 

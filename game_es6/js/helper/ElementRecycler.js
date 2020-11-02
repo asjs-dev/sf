@@ -1,4 +1,6 @@
-SF.ElementRecycler = class ElementRecycler {
+import {is} from "../utility/utils.js";
+
+export default class ElementRecycler {
   constructor() {
     this._list = [];
   }

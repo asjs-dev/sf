@@ -1,8 +1,13 @@
-SF.Ammo = class Ammo extends SF.AbstractCollidable {
+import {between} from "../utility/utils.js";
+import Config from "../Config.js";
+import TextureAtlas from "../helper/TextureAtlas.js";
+import AbstractCollidable from "./AbstractCollidable.js";
+
+export default class Ammo extends AbstractCollidable {
   constructor(baseTexture) {
     super(baseTexture);
 
-    this._SPEED = SF.Config.extension.speed;
+    this._SPEED = Config.extension.speed;
 
     this._hitTestHelper.position.set(10, 7);
     this._hitTestHelper.width  = 46;
@@ -10,9 +15,9 @@ SF.Ammo = class Ammo extends SF.AbstractCollidable {
 
     this._container.scale.set(0.75);
 
-    this.type = SF.AbstractCollidable.Type.Extension;
+    this.type = AbstractCollidable.Type.Extension;
 
-    this._body = new PIXI.Sprite(SF.TextureAtlas.getTexture(this._baseTexture, "Ammo"));
+    this._body = new PIXI.Sprite(TextureAtlas.getTexture(this._baseTexture, "Ammo"));
     this._container.addChild(this._body);
 
     this._leftBorder = -this._container.width;
@@ -23,8 +28,8 @@ SF.Ammo = class Ammo extends SF.AbstractCollidable {
 
     this.isAbleToCollide = true;
 
-    const ammoConfig = SF.Config.extension.ammo;
-    const sizeConfig = SF.Config.size;
+    const ammoConfig = Config.extension.ammo;
+    const sizeConfig = Config.size;
 
     this.VALUE = between(
       ammoConfig.minValue,

@@ -1,11 +1,16 @@
-SF.ColorizedBackground = class ColorizedBackground extends SF.AbstractRenderable {
+import {intToRgb, getAnimatedColor, easeInOut} from "../utility/utils.js";
+import Config from "../Config.js";
+import TextureAtlas from "../helper/TextureAtlas.js";
+import AbstractRenderable from "./AbstractRenderable.js";
+
+export default class ColorizedBackground extends AbstractRenderable {
   constructor(baseTexture, id, width, height) {
     super(baseTexture);
 
-    this._SPEED     = SF.Config.bgColorChangingSpeed;
+    this._SPEED     = Config.bgColorChangingSpeed;
     this._MAX_STEPS = 1 + this._SPEED;
 
-    this._item        = new PIXI.Sprite(SF.TextureAtlas.getTexture(this._baseTexture, id));
+    this._item        = new PIXI.Sprite(TextureAtlas.getTexture(this._baseTexture, id));
     this._item.width  = width;
     this._item.height = height;
     this._container.addChild(this._item);

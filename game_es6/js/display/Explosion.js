@@ -1,8 +1,13 @@
-SF.Explosion = class Explosion extends SF.AbstractRenderable {
+import {between, getAnimatedColor, easeInOut} from "../utility/utils.js";
+import Config from "../Config.js";
+import TextureAtlas from "../helper/TextureAtlas.js";
+import AbstractRenderable from "./AbstractRenderable.js";
+
+export default class Explosion extends AbstractRenderable {
   constructor(baseTexture) {
     super(baseTexture, PIXI.ParticleContainer);
 
-    this._SPEED         = SF.Config.speed;
+    this._SPEED         = Config.speed;
     this._MAX_PARTICLES = 10;
     this._COLORS        = {
       from : {
@@ -24,7 +29,7 @@ SF.Explosion = class Explosion extends SF.AbstractRenderable {
     });
     this._container.scale.set(0.5);
 
-    const texture = SF.TextureAtlas.getTexture(this._baseTexture, "Explosion");
+    const texture = TextureAtlas.getTexture(this._baseTexture, "Explosion");
     for (let i = 0, l = this._MAX_PARTICLES; i < l; ++i)
       this._container.addChild(new PIXI.Sprite(texture));
   }
@@ -36,7 +41,7 @@ SF.Explosion = class Explosion extends SF.AbstractRenderable {
     this._container.x     = x;
     this._container.y     = y;
 
-    const explosionConfig = SF.Config.explosion;
+    const explosionConfig = Config.explosion;
 
     for (let i = 0, l = this._container.children.length; i < l; ++i) {
       let particle                 = this._container.children[i];

@@ -1,7 +1,7 @@
-SF.TextureAtlas = {
+const TextureAtlas = {
   getTexture : (baseTexture, id) => {
     const texture       = new PIXI.Texture(baseTexture);
-          texture.frame = SF.TextureAtlas.TextureRects[id];
+          texture.frame = TextureAtlas.TextureRects[id];
     return texture;
   },
   TextureRects : {
@@ -41,3 +41,5 @@ SF.TextureAtlas = {
     TreeC          : new PIXI.Rectangle(896, 0, 64, 128),
   }
 };
+
+export default TextureAtlas;

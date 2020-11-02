@@ -1,8 +1,11 @@
-SF.AbstractBreakable = class AbstractBreakable extends SF.AbstractCollidable {
+import Config from "../Config.js";
+import AbstractCollidable from "./AbstractCollidable.js";
+
+export default class AbstractBreakable extends AbstractCollidable {
   constructor(baseTexture) {
     super(baseTexture);
 
-    this._BREAKING_SPEED = SF.Config.breakingSpeed;
+    this._BREAKING_SPEED = Config.breakingSpeed;
   }
 
   reset(state) {

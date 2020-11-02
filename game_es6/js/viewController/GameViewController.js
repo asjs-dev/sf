@@ -1,36 +1,55 @@
-SF.GameViewController = class GameViewController extends SF.AbstractViewController {
+import {between, addClass, removeClass, getTwoRectsCenter, is} from "../utility/utils.js";
+import Config from "../Config.js";
+import LevelMenuBackground from "../level/LevelMenuBackground.js";
+import LevelPlanet from "../level/LevelPlanet.js";
+import LevelSpace from "../level/LevelSpace.js";
+import LevelWormHole from "../level/LevelWormHole.js";
+import ElementRecycler from "../helper/ElementRecycler.js";
+import Keyboard from "../helper/Keyboard.js";
+import Player from "../display/Player.js";
+import Rocket from "../display/Rocket.js";
+import EnemyMeteor from "../display/EnemyMeteor.js";
+import EnemyShip from "../display/EnemyShip.js";
+import Explosion from "../display/Explosion.js";
+import LevelElement from "../display/LevelElement.js";
+import Ammo from "../display/Ammo.js";
+import AbstractCollidable from "../display/AbstractCollidable.js";
+import DetectCollisions from "../helper/DetectCollisions.js";
+import AbstractViewController from "./AbstractViewController.js";
+
+export default class GameViewController extends AbstractViewController {
   constructor(dataObserver, renderer, baseTexture) {
     super(dataObserver);
 
     this._LEVELS = {
-      "menu"      : new SF.LevelMenuBackground(),
-      "planet"    : new SF.LevelPlanet(),
-      "space"     : new SF.LevelSpace(),
-      "worm-hole" : new SF.LevelWormHole()
+      "menu"      : new LevelMenuBackground(),
+      "planet"    : new LevelPlanet(),
+      "space"     : new LevelSpace(),
+      "worm-hole" : new LevelWormHole()
     };
 
-    this._KEYS_UP    = SF.Config.keys.up;
-    this._KEYS_RIGHT = SF.Config.keys.right;
-    this._KEYS_DOWN  = SF.Config.keys.down;
-    this._KEYS_LEFT  = SF.Config.keys.left;
+    this._KEYS_UP    = Config.keys.up;
+    this._KEYS_RIGHT = Config.keys.right;
+    this._KEYS_DOWN  = Config.keys.down;
+    this._KEYS_LEFT  = Config.keys.left;
 
-    this._BULLET_TIME_SPEED        = SF.Config.bulletTime.speed;
-    this._BULLET_TIME_DECELERATION = SF.Config.bulletTime.deceleration;
+    this._BULLET_TIME_SPEED        = Config.bulletTime.speed;
+    this._BULLET_TIME_DECELERATION = Config.bulletTime.deceleration;
 
-    this._GAME_AREA = SF.Config.gameArea;
+    this._GAME_AREA = Config.gameArea;
 
-    this._PLAYER_SHOT_DELAY       = SF.Config.player.shotDelay;
-    this._PLAYER_DEFAULT_POSITION = SF.Config.defaultState.player.targetPosition;
-    this._PLAYER_SPEED            = SF.Config.player.speed;
+    this._PLAYER_SHOT_DELAY       = Config.player.shotDelay;
+    this._PLAYER_DEFAULT_POSITION = Config.defaultState.player.targetPosition;
+    this._PLAYER_SPEED            = Config.player.speed;
 
-    this._ENEMY_DELAY         = SF.Config.enemy.delay;
-    this._ENEMY_METEOR_CHANCE = SF.Config.enemy.meteor.chance;
+    this._ENEMY_DELAY         = Config.enemy.delay;
+    this._ENEMY_METEOR_CHANCE = Config.enemy.meteor.chance;
 
-    this._EXTENSION_CHANCE = SF.Config.extension.chance;
+    this._EXTENSION_CHANCE = Config.extension.chance;
 
-    this._MAX_ROCKETS = SF.Config.maxRockets;
+    this._MAX_ROCKETS = Config.maxRockets;
 
-    this._LEVEL_ELEMENT_CHANCE = SF.Config.level.element.chance;
+    this._LEVEL_ELEMENT_CHANCE = Config.level.element.chance;
 
     this._container = document.querySelector(".game-screen");
 
@@ -42,9 +61,9 @@ SF.GameViewController = class GameViewController extends SF.AbstractViewControll
 
     this._level;
 
-    this._recycler = new SF.ElementRecycler();
+    this._recycler = new ElementRecycler();
 
-    this._keyboard = new SF.Keyboard();
+    this._keyboard = new Keyboard();
 
     this._collisionDetectedBound = this._collisionDetected.bind(this);
 
@@ -166,7 +185,7 @@ SF.GameViewController = class GameViewController extends SF.AbstractViewControll
     state.status.rockets     = this._MAX_ROCKETS;
     state.status.kills       = 0;
 
-    this._player = this._getElement(SF.Player);
+    this._player = this._getElement(Player);
     this._player.reset(state);
 
     this._renderer.stage.addChild(this._player.pixiEl);
@@ -176,7 +195,7 @@ SF.GameViewController = class GameViewController extends SF.AbstractViewControll
     state.control.latestShot = state.time;
     state.status.rockets--;
 
-    const rocket = this._getElement(SF.Rocket);
+    const rocket = this._getElement(Rocket);
 
     rocket.reset(state, this._player.pixiEl.x, this._player.pixiEl.y);
 
@@ -187,8 +206,8 @@ SF.GameViewController = class GameViewController extends SF.AbstractViewControll
     state.latestEnemyTime = state.time;
 
     const enemy = Math.floor(Math.random() * this._ENEMY_METEOR_CHANCE) === 0
-      ? this._getElement(SF.EnemyMeteor)
-      : this._getElement(SF.EnemyShip);
+      ? this._getElement(EnemyMeteor)
+      : this._getElement(EnemyShip);
 
     enemy.reset(state);
 
@@ -196,7 +215,7 @@ SF.GameViewController = class GameViewController extends SF.AbstractViewControll
   }
 
   _createExplosion(state, x, y) {
-    const explosion = this._getElement(SF.Explosion);
+    const explosion = this._getElement(Explosion);
 
     explosion.reset(state, x, y);
 
@@ -204,7 +223,7 @@ SF.GameViewController = class GameViewController extends SF.AbstractViewControll
   }
 
   _createLevelElement(state) {
-    const levelElement = this._getElement(SF.LevelElement);
+    const levelElement = this._getElement(LevelElement);
 
     this._level.setupElement(state, levelElement);
 
@@ -213,7 +232,7 @@ SF.GameViewController = class GameViewController extends SF.AbstractViewControll
   }
 
   _createExtension(state) {
-    const extension = this._getElement(SF.Ammo);
+    const extension = this._getElement(Ammo);
 
     extension.reset(state);
 
@@ -245,7 +264,7 @@ SF.GameViewController = class GameViewController extends SF.AbstractViewControll
     if (
       this._checkTypes(
         elementA, elementB,
-        SF.AbstractCollidable.Type.Enemy, SF.AbstractCollidable.Type.Player
+        AbstractCollidable.Type.Enemy, AbstractCollidable.Type.Player
       )
     ) {
       elementA.destroy();
@@ -257,7 +276,7 @@ SF.GameViewController = class GameViewController extends SF.AbstractViewControll
     } else if (
       this._checkTypes(
         elementA, elementB,
-        SF.AbstractCollidable.Type.Enemy, SF.AbstractCollidable.Type.Rocket
+        AbstractCollidable.Type.Enemy, AbstractCollidable.Type.Rocket
       )
     ) {
       elementA.destroy();
@@ -269,14 +288,14 @@ SF.GameViewController = class GameViewController extends SF.AbstractViewControll
     } else if (
       this._checkTypes(
         elementA, elementB,
-        SF.AbstractCollidable.Type.Extension, SF.AbstractCollidable.Type.Player
+        AbstractCollidable.Type.Extension, AbstractCollidable.Type.Player
       )
     ) {
-      const extension = elementA.type === SF.AbstractCollidable.Type.Extension
+      const extension = elementA.type === AbstractCollidable.Type.Extension
         ? elementA
         : elementB;
 
-      if (is(extension, SF.Ammo)) {
+      if (is(extension, Ammo)) {
         state.status.rockets = Math.min(this._MAX_ROCKETS, state.status.rockets + extension.VALUE);
         extension.destroy();
       }
@@ -287,7 +306,7 @@ SF.GameViewController = class GameViewController extends SF.AbstractViewControll
 
   _detectCollisions(state) {
     if (state.view === "game")
-      SF.DetectCollisions(state, this._renderer.stage.children, this._collisionDetectedBound);
+      DetectCollisions(state, this._renderer.stage.children, this._collisionDetectedBound);
   }
 
   _checkTypes(elementA, elementB, typeA, typeB) {

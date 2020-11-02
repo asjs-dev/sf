@@ -1,11 +1,14 @@
-SF.AbstractCollidable = class AbstractCollidable extends SF.AbstractRenderable {
+import AbstractRenderable from "./AbstractRenderable.js";
+import TextureAtlas from "../helper/TextureAtlas.js";
+
+export default class AbstractCollidable extends AbstractRenderable {
   constructor(baseTexture) {
     super(baseTexture);
 
-    this._hitTestHelper = new PIXI.Sprite(SF.TextureAtlas.getTexture(this._baseTexture, "HitTestHelper"));
+    this._hitTestHelper = new PIXI.Sprite(TextureAtlas.getTexture(this._baseTexture, "HitTestHelper"));
     this._container.addChild(this._hitTestHelper);
 
-    this.type = SF.AbstractCollidable.Type.Neutral;
+    this.type = AbstractCollidable.Type.Neutral;
   }
 
   reset() {
@@ -22,7 +25,8 @@ SF.AbstractCollidable = class AbstractCollidable extends SF.AbstractRenderable {
     this._container.removeChild(this._hitTestHelper);
   }
 };
-SF.AbstractCollidable.Type = {
+
+AbstractCollidable.Type = {
   Player    : "player",
   Rocket    : "rocket",
   Enemy     : "enemy",

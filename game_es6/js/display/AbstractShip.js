@@ -1,4 +1,7 @@
-SF.AbstractShip = class AbstractShip extends SF.AbstractBreakable {
+import AbstractBreakable from "./AbstractBreakable.js";
+import LightBeam from "./LightBeam.js";
+
+export default class AbstractShip extends AbstractBreakable {
   constructor(baseTexture, lightBeamType) {
     super(baseTexture);
 
@@ -14,7 +17,7 @@ SF.AbstractShip = class AbstractShip extends SF.AbstractBreakable {
     this._wing = new PIXI.Sprite();
     this._container.addChild(this._wing);
 
-    this._lightBeam = new SF.LightBeam(
+    this._lightBeam = new LightBeam(
       this._baseTexture,
       lightBeamType
     );

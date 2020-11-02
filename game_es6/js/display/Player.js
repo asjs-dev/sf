@@ -1,22 +1,28 @@
-SF.Player = class Player extends SF.AbstractShip {
-  constructor(baseTexture) {
-    super(baseTexture, SF.LightBeam.Type.Blue);
+import Config from "../Config.js";
+import LightBeam from "./LightBeam.js";
+import TextureAtlas from "../helper/TextureAtlas.js";
+import AbstractCollidable from "./AbstractCollidable.js";
+import AbstractShip from "./AbstractShip.js";
 
-    this._DECELERATION = SF.Config.player.deceleration;
+export default class Player extends AbstractShip {
+  constructor(baseTexture) {
+    super(baseTexture, LightBeam.Type.Blue);
+
+    this._DECELERATION = Config.player.deceleration;
 
     this._hitTestHelper.position.set(-30, 21);
     this._hitTestHelper.width  = 145;
     this._hitTestHelper.height = 38;
 
-    this.type = SF.AbstractCollidable.Type.Player;
+    this.type = AbstractCollidable.Type.Player;
 
     this._container.scale.set(0.5);
 
-    this._cabin.texture  = SF.TextureAtlas.getTexture(this._baseTexture, "PlayerCabin");
-    this._body.texture   = SF.TextureAtlas.getTexture(this._baseTexture, "PlayerBody");
-    this._engine.texture = SF.TextureAtlas.getTexture(this._baseTexture, "PlayerEngine");
-    this._wing.texture   = SF.TextureAtlas.getTexture(this._baseTexture, "PlayerWing");
-    this._gun.texture    = SF.TextureAtlas.getTexture(this._baseTexture, "PlayerGun");
+    this._cabin.texture  = TextureAtlas.getTexture(this._baseTexture, "PlayerCabin");
+    this._body.texture   = TextureAtlas.getTexture(this._baseTexture, "PlayerBody");
+    this._engine.texture = TextureAtlas.getTexture(this._baseTexture, "PlayerEngine");
+    this._wing.texture   = TextureAtlas.getTexture(this._baseTexture, "PlayerWing");
+    this._gun.texture    = TextureAtlas.getTexture(this._baseTexture, "PlayerGun");
     this._wing.anchor.set(0.5);
   }
 

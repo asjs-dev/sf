@@ -1,4 +1,8 @@
-SF.LevelSpace = class LevelSpace extends SF.AbstractLevel {
+import {between} from "../utility/utils.js";
+import Config from "../Config.js";
+import AbstractLevel from "./AbstractLevel.js";
+
+export default class LevelSpace extends AbstractLevel {
   constructor() {
     super();
 
@@ -16,7 +20,7 @@ SF.LevelSpace = class LevelSpace extends SF.AbstractLevel {
   }
 
   setupElement(state, element) {
-    const sizeConfig = SF.Config.size;
+    const sizeConfig = Config.size;
 
     let z = Math.random();
 

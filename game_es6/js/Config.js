@@ -1,4 +1,4 @@
-SF.Config = deepFreeze({
+export default {
   defaultState : {
     view      : "splash",
     preview   : null,
@@ -90,4 +90,4 @@ SF.Config = deepFreeze({
       maxScale    : 2.5
     }
   }
-});
+};

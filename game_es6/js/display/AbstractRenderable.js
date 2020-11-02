@@ -1,4 +1,6 @@
-SF.AbstractRenderable = class AbstractRenderable extends SF.BaseClass {
+import BaseClass from "../helper/BaseClass.js";
+
+export default class AbstractRenderable extends BaseClass {
   constructor(baseTexture, containerType) {
     super();
 
